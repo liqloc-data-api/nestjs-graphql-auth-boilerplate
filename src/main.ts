@@ -10,7 +10,7 @@ import ValidationPipe from './pipes/validation.pipe';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(ValidationPipe);
-
+  app.enableCors();
   const { PORT, HOST } = process.env;
   await app.listen(PORT, HOST);
   Logger.log(`Server listening on http://${HOST}:${PORT}`, 'NestApplication');
