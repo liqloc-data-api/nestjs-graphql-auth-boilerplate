@@ -1,0 +1,210 @@
+type SessionOrder {
+  order_id: Int!
+  order_subtype_id: Int!
+  order_subtype_name: String!
+  order_type_id: Int!
+  order_type_name: String!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  order_key: String
+  order_members: JSON!
+  custom_members: JSON
+  updated_at: DateTime!
+  updated_by_email: String!
+  updated_by: Int!
+}
+
+type SessionOrderDetail {
+  order_id: Int!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  instrument_id: Int!
+  order_detail_members: JSON!
+  custom_members: JSON
+  updated_at: DateTime!
+  updated_by_email: String!
+  updated_by: Int!
+}
+
+input SingleMaturityDOMembers {
+  instrument_id1: Int!
+  direction: Direction!
+  amount: Float!
+  price: Float!
+  fo_amount: Float
+  fo_price: Float
+  instrument_id1_min: Int
+  instrument_id1_max: Int
+  liquidity_premium: Float
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input SpreadDOMembers {
+  instrument_id1: Int!
+  instrument_id2: Int!
+  direction: Direction!
+  amount: Float!
+  price: Float!
+  fo_amount: Float
+  fo_price: Float
+  instrument_id1_min: Int
+  instrument_id1_max: Int
+  instrument_id2_min: Int
+  instrument_id2_max: Int
+  liquidity_premium: Float
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input FlyDOMembers {
+  instrument_id1: Int!
+  instrument_id2: Int!
+  instrument_id3: Int!
+  direction: Direction!
+  amount: Float!
+  price: Float!
+  fo_amount: Float
+  fo_price: Float
+  instrument_id1_min: Int
+  instrument_id1_max: Int
+  instrument_id2_min: Int
+  instrument_id2_max: Int
+  instrument_id3_min: Int
+  instrument_id3_max: Int
+  liquidity_premium: Int
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input AnyOfDOMembersOrderDetails {
+  instrument_id1: Int!
+  price: Float!
+  fo_price: Float
+  instrument_id1_min: Int
+  instrument_id1_max: Int
+}
+
+input AnyOfDOMembers {
+  amount: Float!
+  direction: Direction!
+  fo_amount: Float
+  liquidity_premium: Float
+  order_details: [AnyOfDOMembersOrderDetails!]!
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input AllOfDOMembersOrderDetails {
+  instrument_id1: Int!
+  amount: Float!
+  price: Float!
+  direction: Direction!
+  fo_amount: Float
+  fo_price: Float
+  instrument_id1_min: Int
+  instrument_id1_max: Int
+}
+
+input AllOfDOMembers {
+  liquidity_premium: Float
+  order_details: [AllOfDOMembersOrderDetails!]!
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input TagAlongDOMembers {
+  instrument_id1: Int!
+  amount: Float!
+  direction: Direction!
+  liquidity_threshold: Float!
+}
+
+input DeltaLadderOrderMembers {
+  liquidity_premium: Float
+  move_to_liquid_maturity: Boolean
+}
+
+input DeltaLadderOrderDetailMembers {
+  amount: Float!
+  price: Float
+  direction: Direction!
+  preserve_amount: Float
+  price_type: PriceType = PREMIUM_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input SingleMaturityMMOrderMembers {
+  instrument_id1: Int!
+  pay_amount: Float!
+  receive_amount: Float!
+  pay_price: Float!
+  receive_price: Float!
+  fo_pay_amount: Float
+  fo_receive_amount: Float
+  fo_pay_price: Float
+  fo_receive_price: Float
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input SpreadMMOrderMembers {
+  instrument_id1: Int!
+  instrument_id2: Int!
+  pay_amount: Float!
+  receive_amount: Float!
+  pay_price: Float!
+  receive_price: Float!
+  fo_pay_amount: Float
+  fo_receive_amount: Float
+  fo_pay_price: Float
+  fo_receive_price: Float
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input FlyMMOrderMembers {
+  instrument_id1: Int!
+  instrument_id2: Int!
+  instrument_id3: Int!
+  pay_amount: Float!
+  receive_amount: Float!
+  pay_price: Float!
+  receive_price: Float!
+  fo_pay_amount: Float
+  fo_receive_amount: Float
+  fo_pay_price: Float
+  fo_receive_price: Float
+  price_type: PriceType = SPREAD_TO_MID
+  amount_type: AmountType = DV01
+}
+
+input RuleBasedMMOrderMembers {
+  instrument_subtype_ids: [Int]!
+  liquid_instruments: Boolean!
+  instrument_id_min: Int!
+  instrument_id_max: Int!
+  fraction_of_spread: Float!
+}
+
+input SessionMultiOrder {
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  order_subtype_id: Int!
+  order_key: String
+  order_members: JSON!
+  custom_members: JSON
+  updated_by: Int!
+}
+
+input MultiSessionOrderDetail {
+  order_id: Int!
+  session_id: Int!
+  instrument_id: Int!
+  order_detail_members: DeltaLadderOrderDetailMembers!
+  custom_members: JSON
+  updated_by: Int!
+}

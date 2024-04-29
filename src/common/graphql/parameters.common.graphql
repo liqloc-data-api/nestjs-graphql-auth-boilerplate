@@ -1,0 +1,117 @@
+type SessionLimit {
+  parameter_id: Int!
+  parameter_subtype_name: String!
+  parameter_subtype_id: Int!
+  parameter_type_id: Int!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  parameter_key: String
+  parameter_members: JSON!
+  custom_members: JSON
+  updated_at: DateTime!
+  updated_by_email: String!
+  updated_by: Int!
+}
+
+input MultiSessionLimit {
+  parameter_subtype_id: Int!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  parameter_key: String
+  parameter_members: JSON!
+  custom_members: JSON
+  updated_by: Int!
+}
+
+input SingleMaturityLimitMembers {
+  instrument_id: Int!
+  max_pay_limit: Float!
+  max_receive_limit: Float!
+  unit: AmountType = DV01
+}
+
+input MultiSessionSingleMaturityLimit {
+  parameter_subtype_id: Int!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  parameter_key: String
+  parameter_members: SingleMaturityLimitMembers!
+  custom_members: JSON
+  updated_by: Int!
+}
+
+input DateRangeLimitMembers {
+  instrument_id_min: Int!
+  instrument_id_max: Int!
+  max_pay_limit: Float!
+  max_receive_limit: Float!
+  unit: AmountType = DV01
+}
+
+input MultiSessionDateRangeLimit {
+  parameter_subtype_id: Int!
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  parameter_key: String
+  parameter_members: DateRangeLimitMembers!
+  custom_members: JSON
+  updated_by: Int!
+}
+
+input SingleMaturityLimitSettingMembers {
+  order_type_ids: [Int]!
+}
+
+input Bucket {
+  name: String!
+  instrument_ids: [Int!]!
+}
+
+input BucketPairLimit {
+  near_bucket_name: String!
+  far_bucket_name: String!
+  limit: Float!
+  direction: Direction!
+  inferred: Boolean!
+}
+
+input RelativeDateLimitMembers {
+  buckets: [Bucket!]!
+  bucket_pair_limits: [BucketPairLimit!]!
+  unit: AmountType = DV01
+}
+
+input RelativeDateLimitSettingMembers {
+  bucket_end_instrument_ids: [Int]!
+  multiplier: Float! = 1.0
+}
+
+input OtherParametersMembers {
+  value: Float!
+}
+
+input OtherParametersMembersWithSubId {
+  parameter_subtype_id: Int!
+  parameter_member: OtherParametersMembers!
+}
+
+input OtherParametersMembersWithId {
+  parameter_id: Int!
+  parameter_member: OtherParametersMembers!
+}
+
+input LiquidInstrumentsMembers {
+  instrument_ids: [Int]!
+}
+
+input DlNetDV01RangeMembers {
+  min_limit: Float!
+  max_limit: Float!
+  order_id: Int!
+  inferred: Boolean
+  unit: AmountType = DV01
+}

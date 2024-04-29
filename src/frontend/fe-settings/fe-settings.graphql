@@ -1,0 +1,44 @@
+type Query {
+  getAllFeSettings(session_id: Int!, book_id: Int!): Any
+  getSessionFeSettingsByTypeId(session_id: Int!, setting_type_id: Int!): Any
+  getSessionBookFeSettingsByTypeId(session_id: Int!, book_id: Int!, setting_type_id: Int!): Any
+  getSessionUserFeSettingsByTypeId(session_id: Int!, setting_type_id: Int!): Any
+  getSessionBookUserFeSettingsByTypeId(session_id: Int!, book_id: Int!, setting_type_id: Int!): Any
+}
+
+type Mutation {
+  addSessionBookFeSettingsByTypeId(
+    session_id: Int!
+    book_id: Int!
+    setting_type_id: JSON!
+    setting_members: JSON!
+  ): Any!
+  addSessionUserFeSettingsByTypeId(
+    session_id: Int!
+    setting_type_id: JSON!
+    setting_members: JSON!
+  ): AddMutationResponse!
+  addSessionBookUserFeSettingsByTypeId(
+    session_id: Int!
+    book_id: Int!
+    setting_type_id: JSON!
+    setting_members: JSON!
+  ): AddMutationResponse!
+  updateSessionBookFeSettingsByTypeId(
+    session_id: Int!
+    book_id: Int!
+    setting_members: JSON!
+    setting_type_id: Int!
+  ): AddMutationResponse!
+  updateSessionUserFeSettingsByTypeId(
+    session_id: Int!
+    setting_members: JSON!
+    setting_type_id: Int!
+  ): AddMutationResponse!
+  updateSessionBookUserFeSettingsByTypeId(
+    session_id: Int!
+    book_id: Int!
+    setting_members: JSON!
+    setting_type_id: Int!
+  ): AddMutationResponse!
+}

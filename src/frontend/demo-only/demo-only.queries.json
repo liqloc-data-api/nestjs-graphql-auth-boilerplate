@@ -1,0 +1,14 @@
+{
+  "QUERY": {
+    "CHECK_TRADER_EMAIL": "select * from iam.users where email = $1 and organization = $2",
+    "CHECK_BOOK_BY_NAME": "select * from iam.books where name = $1 and organization = $2 and product = $3",
+    "CHECK_TRADER_BOOK_ROLE": "select * from iam.user_roles where user_id = $1 and trader_id = $1 and book_id = $2 and role = $3",
+    "CHECK_ADMIN_BOOk_TRADER_ROLE": "select * from user_roles where user_id = $1 and trader_id = $2 and book_id = $3 and role = ANY($4)"
+  },
+  "ADD": {
+    "CHECK_AND_ADD_DEMO_USER": "WITH existing_user AS (SELECT * FROM iam.users WHERE email = $1 and organization_id = $4), inserted_user AS (INSERT INTO iam.users(first_name, last_name, email, organization_id, updated_by) SELECT $2, $3, $1, $4, $5 WHERE NOT EXISTS (SELECT 1 FROM existing_user) RETURNING *) SELECT * FROM inserted_user UNION ALL SELECT * FROM existing_user WHERE NOT EXISTS (SELECT 1 FROM inserted_user)",
+    "ADD_USER_ROLE_ON_BOOK": "WITH existing_user_role AS (SELECT * FROM iam.user_roles WHERE user_id = $1 and book_id = $2 and trader_id = $3 and role_id = $4), inserted_user_role AS (INSERT INTO iam.user_roles (user_id, book_id, trader_id, role_id, updated_by) SELECT $1, $2, $3, $4, $5 WHERE NOT EXISTS (SELECT 1 FROM existing_user_role) RETURNING *) SELECT * FROM inserted_user_role UNION ALL SELECT * FROM existing_user_role WHERE NOT EXISTS (SELECT 1 FROM inserted_user_role)",
+    "CHECK_AND_ADD_DEMO_BOOK": "WITH existing_book AS (SELECT * FROM iam.books WHERE book_name = $1 and organization_id = $3), inserted_book AS (INSERT INTO iam.books(organization_id, product_id, book_name, book_short_name, updated_by) SELECT $3, $2, $1, $1, $4 WHERE NOT EXISTS (SELECT 1 FROM existing_book) RETURNING *) SELECT * FROM inserted_book UNION ALL SELECT * FROM existing_book WHERE NOT EXISTS (SELECT 1 FROM inserted_book)",
+    "ADD_SESSION_ACCESS_TO_BOOK": "WITH ins AS (INSERT INTO session.session_books(session_id, book_id, participation_type_id, updated_by) VALUES ($1, $2, $3, $4) ON CONFLICT (session_id, book_id) DO NOTHING RETURNING *) SELECT * FROM ins UNION SELECT * FROM session.session_books WHERE (session_id, book_id) = ($1, $2);"
+  }
+}

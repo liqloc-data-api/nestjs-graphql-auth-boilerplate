@@ -1,0 +1,66 @@
+input MultiCurveIdMembers {
+  curve_id: Int!
+  curve_members: CurveMembersInput!
+}
+
+type Query {
+  getSessionCurveById(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    curve_id: Int!
+  ): SessionCurve
+  getSessionCurves(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): [SessionCurve]!
+}
+
+type Mutation {
+  addSessionCurve(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    instrument_id: Int!
+    curve_members: CurveMembersInput!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateSessionCurve(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    curve_id: Int!
+    curve_members: CurveMembersInput!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateMultiSessionCurves(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    session_curves: [MultiCurveIdMembers!]!
+  ): AddMutationResponse!
+  deleteSessionCurvesCustomColumn(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    column_name: String!
+  ): DeleteMutationResponse!
+  deleteSessionCurvesRateAdj(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    curve_ids: [Int!]!
+  ): DeleteMutationResponse!
+  deleteSessionCurves(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    curve_ids: [Int!]!
+  ): DeleteMutationResponse!
+  deleteAllSessionCurves(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): DeleteMutationResponse!
+}

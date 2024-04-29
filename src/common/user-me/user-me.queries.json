@@ -1,0 +1,8 @@
+{
+  "QUERY": {
+    "GET_USER_FROM_EMAIL_Q": "SELECT * FROM iam.users WHERE email = $1 AND status AND not deleted",
+    "IS_DEMO_PERMISSION_Q": "SELECT ur.user_id, p.subject = 'Demo' as is_demo_user FROM iam.user_roles ur JOIN iam.users u ON ur.user_id = u.user_id JOIN iam.role_permissions rp ON rp.role_id = ur.role_id JOIN iam.permissions p ON p.permission_id = rp.permission_id WHERE ur.user_id = $1 AND u.organization_id = $2 AND ur.status AND p.subject = 'Demo' AND NOT ur.deleted AND rp.status AND NOT rp.deleted AND p.status and NOT p.deleted and not ur.deleted",
+    "GET_USER_PERMISSIONS_Q": "SELECT ur.user_id , t.email as trader_email, ur.entity_id , ur.book_id , b.book_name, ur.trader_id , p.subject , p.action FROM iam.user_roles ur JOIN iam.users t ON t.user_id = ur.trader_id JOIN iam.books b ON b.book_id = ur.book_id JOIN iam.role_permissions rp ON rp.role_id = ur.role_id JOIN iam.permissions p ON p.permission_id = rp.permission_id WHERE ur.user_id  = $1 AND ur.status AND NOT ur.deleted AND rp.status AND NOT rp.deleted AND p.status and NOT p.deleted",
+    "GET_USER_SESSION_Q": "SELECT ur.user_id , ur.book_id, sb.session_id, sb.participation_type_id , sl.session_name, sl.session_state FROM iam.user_roles ur JOIN session.session_books sb ON ur.book_id = sb.book_id JOIN session.sessions sl ON sl.session_id = sb.session_id JOIN portal.participation_types pt ON sb.participation_type_id  = pt.participation_type_id WHERE ur.user_id = $1 AND NOT sl.deleted AND sl.status AND ur.status AND NOT ur.deleted  AND NOT sb.deleted"
+  }
+}

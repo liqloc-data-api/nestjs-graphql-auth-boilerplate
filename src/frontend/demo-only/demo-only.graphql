@@ -1,0 +1,15 @@
+
+type SuccessDemoBookTraderInit {
+    trader_id: Int!
+    book_id: Int!
+}
+
+type Mutation {
+    demoBookTraderInitiation(
+        session_id: Int!,
+        email: String!,
+        book_name: String!,
+        trader_id: Int,
+        book_id: Int,
+        ): SuccessDemoBookTraderInit!
+}

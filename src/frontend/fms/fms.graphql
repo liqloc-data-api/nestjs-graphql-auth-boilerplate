@@ -1,0 +1,8 @@
+type Mutation {
+  addMMWJson(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    json_data: JSON!
+  ): AddMutationResponse!
+}

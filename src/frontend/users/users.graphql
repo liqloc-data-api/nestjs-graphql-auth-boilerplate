@@ -1,0 +1,42 @@
+type SessionPermission {
+  session_id: Int!
+  session_name: String!
+  status: String!
+  book_id: [Int!]!
+}
+
+type SubjectActions {
+  subject: String!
+  actions: [String!]
+}
+
+type BookTraderPermissions {
+  session_id: Int!
+  book_id: Int!
+  book_name: String!
+  trader_id: Int!
+  trader_email: String!
+  permissions: [SubjectActions]!
+}
+
+type UserMePermissions {
+  user_id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  sessions: [SessionPermission]!
+  book_trader: [BookTraderPermissions]!
+  is_demo_user: Boolean!
+}
+
+type User {
+  user_id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+}
+
+type Query {
+  userMePermissions: UserMePermissions!
+  getUser(session_id: Int!, book_id: Int!, trader_id: Int!): User!
+}

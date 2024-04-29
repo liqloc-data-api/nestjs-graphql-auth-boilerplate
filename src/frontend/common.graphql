@@ -1,0 +1,44 @@
+enum RateUnit {
+  BASIS_POINT
+  PERCENTAGE
+}
+
+enum PriceType {
+  PREMIUM_TO_MID
+  SPREAD_TO_MID
+}
+
+enum AmountType {
+  DV01
+  NOTIONAL
+}
+
+enum Direction {
+  Receive
+  Pay
+}
+
+type DeleteMutationResponse {
+  code: Int!
+  message: String!
+  metaData: JSON
+}
+
+type AddMutationResponse {
+  code: Int!
+  message: String!
+  metaData: JSON
+}
+
+input CustomMembersInput {
+  _custom_column_1: Any
+  _custom_column_2: Any
+  _custom_column_3: Any
+  _custom_column_4: Any
+  _custom_column_5: Any
+  _custom_column_6: Any
+  _custom_column_7: Any
+  _custom_column_8: Any
+  _custom_column_9: Any
+  _custom_column_10: Any
+}

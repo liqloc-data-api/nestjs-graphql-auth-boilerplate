@@ -1,0 +1,8 @@
+type Query {
+  getSession(session_id: Int!, book_id: Int!, trader_id: Int!): Session
+  getSessionInstruments(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): [SessionInstrument]!
+}

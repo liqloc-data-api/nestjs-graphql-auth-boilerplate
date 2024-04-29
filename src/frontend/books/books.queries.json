@@ -1,0 +1,5 @@
+{
+  "QUERY": {
+    "GET_BOOK": "select * from iam.books where book_id = $1 and status and not deleted"
+  }
+}

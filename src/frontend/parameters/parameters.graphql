@@ -1,0 +1,149 @@
+type Query {
+  getSessionParametersByParameterTypes(
+    book_id: Int!
+    trader_id: Int!
+    session_id: Int!
+    parameter_type_ids: [Int]!
+  ): [SessionLimit]!
+  getSessionParameterById(
+    book_id: Int!
+    trader_id: Int!
+    session_id: Int!
+    parameter_id: Int!
+  ): SessionLimit
+}
+
+type Mutation {
+  addSingleMaturityLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: SingleMaturityLimitMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addSingleMaturityLimits(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members_array: [SingleMaturityLimitMembers]!
+  ): AddMutationResponse!
+  updateSingleMaturityLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: SingleMaturityLimitMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addSingleMaturityLimitSetting(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: SingleMaturityLimitSettingMembers!
+  ): AddMutationResponse!
+  updateSingleMaturityLimitSetting(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: SingleMaturityLimitSettingMembers!
+  ): AddMutationResponse!
+  addDateRangeLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: DateRangeLimitMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateDateRangeLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: DateRangeLimitMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addRelativeDateLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: JSON!
+  ): AddMutationResponse!
+  updateRelativeDateLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: JSON!
+  ): AddMutationResponse!
+  addRelativeDateLimitSetting(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: RelativeDateLimitSettingMembers!
+  ): AddMutationResponse!
+  addDlNetDV01RangeLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: DlNetDV01RangeMembers!
+  ): AddMutationResponse!
+  updateDlNetDV01RangeLimit(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: DlNetDV01RangeMembers!
+  ): AddMutationResponse!
+  updateRelativeDateLimitSetting(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: RelativeDateLimitSettingMembers!
+  ): AddMutationResponse!
+  addOtherParameters(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_detail_list: [OtherParametersMembersWithSubId]!
+  ): AddMutationResponse!
+  updateOtherParameters(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_detail_list: [OtherParametersMembersWithId]!
+  ): AddMutationResponse!
+  addLiquidInstruments(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_members: LiquidInstrumentsMembers!
+  ): AddMutationResponse!
+  updateLiquidInstruments(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_id: Int!
+    parameter_members: LiquidInstrumentsMembers!
+  ): AddMutationResponse!
+  deleteSessionParametersCustomColumn(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_type_id: Int!
+    column_name: String!
+  ): DeleteMutationResponse!
+  deleteSessionParameters(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_ids: [Int!]!
+  ): DeleteMutationResponse!
+  deleteAllSessionParametersByTypeIds(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    parameter_type_ids: [Int!]!
+  ): DeleteMutationResponse!
+}

@@ -1,0 +1,22 @@
+{
+  "QUERY": {
+    "GET_SESSION_FE_SETTINGS": "select pst.setting_type_name, pss.* from portal.session_settings pss join portal.setting_types as pst on pss.setting_type_id = pst.setting_type_id where pss.session_id = $1 and pss.status and pst.status",
+    "GET_SESSION_BOOK_FE_SETTINGS": "select pst.setting_type_name, pbs.* from portal.session_book_settings pbs join portal.setting_types as pst on pbs.setting_type_id = pst.setting_type_id where pbs.session_id = $1 and pbs.book_id = $2 and pbs.status and pst.status",
+    "GET_SESSION_USER_FE_SETTINGS": "select pst.setting_type_name, pus.* from portal.session_user_settings pus join portal.setting_types as pst on pus.setting_type_id = pst.setting_type_id where pus.session_id = $1 and pus.user_id = $2 and pus.status",
+    "GET_SESSION_BOOK_USER_FE_SETTINGS": "select pst.setting_type_name, pbus.* from portal.session_book_user_settings pbus join portal.setting_types as pst on pbus.setting_type_id = pst.setting_type_id where pbus.session_id = $1 and pbus.book_id = $2 and pbus.user_id = $3 and pbus.status and pst.status",
+    "GET_SESSION_FE_SETTINGS_BY_TYPE": "select pst.setting_type_name, pss.* from portal.session_settings pss join portal.setting_types as pst on pss.setting_type_id = pst.setting_type_id where pss.session_id = $1 and pss.setting_type_id = $2 and pss.status and pst.status",
+    "GET_SESSION_BOOK_FE_SETTINGS_BY_TYPE": "select pst.setting_type_name, pbs.* from portal.session_book_settings pbs join portal.setting_types as pst on pbs.setting_type_id = pst.setting_type_id where pbs.session_id = $1 and pbs.book_id = $2 and pbs.setting_type_id = $3 and pbs.status and pst.status",
+    "GET_SESSION_USER_FE_SETTINGS_BY_TYPE": "select pst.setting_type_name, pus.* from portal.session_user_settings pus join portal.setting_types as pst on pus.setting_type_id = pst.setting_type_id where pus.session_id = $1 and pus.user_id = $2 and pus.setting_type_id = $3 and pus.status",
+    "GET_SESSION_BOOK_USER_FE_SETTINGS_BY_TYPE": "select pst.setting_type_name, pbus.* from portal.session_book_user_settings pbus join portal.setting_types as pst on pbus.setting_type_id = pst.setting_type_id where pbus.session_id = $1 and pbus.book_id = $2 and pbus.user_id = $3 and pbus.setting_type_id = $4 and pbus.status and pst.status"
+  },
+  "ADD": {
+    "ADD_SESSION_BOOK_FE_SETTINGS_BY_TYPE": "insert into portal.session_book_settings (session_id, book_id, setting_type_id, setting_members, updated_by) values ($1, $2, $3, $4, $5) returning *",
+    "ADD_SESSION_USER_FE_SETTINGS_BY_TYPE": "insert into portal.session_user_settings (session_id, user_id, setting_type_id, setting_members, updated_by) values ($1, $2, $3, $4, $5) returning *",
+    "ADD_SESSION_BOOK_USER_FE_SETTINGS_BY_TYPE": "insert into portal.session_book_user_settings (session_id, book_id, user_id, setting_type_id, setting_members, updated_by) values ($1, $2, $3, $4, $5, $6) returning *"
+  },
+  "UPDATE": {
+    "UPDATE_SESSION_BOOK_TABLE_FE_SETTINGS_BY_TYPE": "update portal.session_book_settings set setting_members = $1, updated_by = $5 where session_id = $2 and book_id = $3 and setting_type_id = $4 and status returning *",
+    "UPDATE_SESSION_BOOK_USER_TABLE_FE_SETTINGS_BY_TYPE": "update portal.session_book_user_settings set setting_members = $1, updated_by = $6 where session_id = $2 and book_id = $3 and user_id = $4 and setting_type_id = $5 and status returning *",
+    "UPDATE_SESSION_USER_TABLE_FE_SETTINGS_BY_TYPE": "update portal.session_user_settings set setting_members = $1, updated_by = $5 where session_id = $2 and user_id = $3 and setting_type_id = $4 and status returning *"
+  }
+}

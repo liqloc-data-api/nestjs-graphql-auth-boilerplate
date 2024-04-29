@@ -1,0 +1,30 @@
+
+type UserPermission {
+  user_id: Int!
+  entity_id: Int!
+  book_id: Int!
+  book_name: String!
+  trader_id: Int!
+  trader_email: String!
+  subject: String!
+  action: String!
+}
+
+type UserActiveSessionBook {
+  user_id: Int!
+  book_id: Int!
+  session_id: Int!
+  session_state: String!
+  session_name: String!
+}
+
+type UserMe {
+  user_id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  organization_id: Int!
+  permissions: [UserPermission]!
+  active_session_books: [UserActiveSessionBook]!
+  is_demo_user: Boolean!
+}

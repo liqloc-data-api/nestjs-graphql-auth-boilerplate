@@ -1,0 +1,5 @@
+{
+    "QUERY": {
+      "GET_USER": "Select * from iam.users where user_id = $1 and status and not deleted"
+    }
+}

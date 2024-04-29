@@ -1,0 +1,18 @@
+input SessionInput {
+  product_id: Int!
+  session_name: String!
+  session_date: DateYYYYMMDD!
+  session_time: String!
+  session_state: String!
+  meta_data: String
+}
+
+type Session {
+  session_id: Int!
+  product_id: Int!
+  session_name: String!
+  session_date: DateYYYYMMDD!
+  session_time: String!
+  session_state: String!
+  meta_data: String
+}

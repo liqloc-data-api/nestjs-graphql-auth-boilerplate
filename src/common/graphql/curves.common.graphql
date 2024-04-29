@@ -1,0 +1,41 @@
+input CurveMembersInput {
+  dv01: Float!
+  pv01: Float!
+  rate_adj: Float
+  mid_market_rate: Float!
+  mid_market_rate_unit: RateUnit = PERCENTAGE
+  rate_adj_unit: RateUnit = BASIS_POINT
+}
+
+type SessionCurve {
+  curve_id: Int!
+  instrument_id: Int!
+  symbol: String!
+  instrument_members: InstrumentMembers!
+  book_id: Int!
+  trader_id: Int!
+  session_id: Int!
+  curve_members: JSON!
+  custom_members: JSON
+  updated_at: DateTime!
+  updated_by_email: String!
+}
+
+input SessionCurveInput {
+  instrument_id: Int
+  book_id: Int
+  trader_id: Int
+  session_id: Int
+  curve_members: CurveMembersInput!
+  custom_members: CustomMembersInput
+}
+
+input MultiSessionCurveInput {
+  session_id: Int!
+  book_id: Int!
+  trader_id: Int!
+  instrument_id: Int!
+  curve_members: CurveMembersInput!
+  custom_members: JSON
+  updated_by: Int!
+}

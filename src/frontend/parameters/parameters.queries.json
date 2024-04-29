@@ -1,0 +1,21 @@
+{
+  "QUERY": {
+    "GET_PARAMETER_BY_PARAMETER_TYPE": "select sl.parameter_id, sl.parameter_subtype_id, lst.parameter_subtype_name, lt.parameter_type_id, lt.parameter_type_name, sl.session_id, sl.book_id, sl.trader_id, sl.parameter_key, sl.parameter_members, sl.custom_members, sl.updated_by, u.email as updated_by_email, sl.updated_at from session.session_parameters sl join iam.users u on u.user_id = sl.updated_by join session.parameter_subtypes lst on lst.parameter_subtype_id = sl.parameter_subtype_id join session.parameter_types lt on lt.parameter_type_id = lst.parameter_type_id where sl.session_id = $1 and sl.book_id = $2 and sl.trader_id = $3 and lt.parameter_type_id = Any($4) and not sl.deleted",    
+    "GET_PARAMETER_BY_ID": "select sl.parameter_id, sl.parameter_type_id, lt.parameter_type_name, sl.session_id, sl.book_id, sl.trader_id, sl.parameter_key, sl.parameter_members, sl.custom_members, sl.updated_by, u.email as updated_by_email, sl.updated_at from session.session_parameters sl join iam.users u on u.user_id = sl.updated_by join session.parameter_types lt on lt.parameter_type_id = sl.parameter_type_id where sl.session_id = $1 and sl.book_id = $2 and sl.trader_id = $3 and sl.parameter_id = $4 and not sl.deleted",
+    "GET_PARAMETER_SUBTYPES": "select parameter_subtype_id, parameter_subtype_name from session.parameter_subtypes where not deleted"
+  },
+  "ADD": {
+    "ADD_PARAMETERS": "insert into session.session_parameters (parameter_subtype_id, session_id, book_id, trader_id, parameter_key, parameter_members, custom_members, updated_by) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
+    "ADD_MULTI_PARAMETERS": "INSERT INTO session.session_parameters (parameter_subtype_id, session_id, book_id, trader_id, parameter_key, parameter_members, custom_members, updated_by) VALUES {placeholder} RETURNING *"
+  },
+  "UPDATE": {
+    "UPDATE_PARAMETER": "update session.session_parameters set parameter_key = $6, parameter_members = $7, custom_members = $8, updated_by = $9 where parameter_id = $1 and session_id = $2 and book_id = $3 and trader_id = $4 and parameter_subtype_id = $5 and not deleted returning *",
+    "UPDATE_MULTI_PARAMETERS": "UPDATE session.session_parameters AS sl SET parameter_members = u.parameter_members, updated_by = $4 FROM (VALUES {placeholder}) AS u(parameter_id, parameter_members) WHERE u.parameter_id = sl.parameter_id AND sl.session_id = $1 AND sl.book_id = $2 AND sl.trader_id = $3 AND sl.parameter_subtype_id = ANY($5) AND NOT sl.deleted RETURNING sl.*" 
+  },
+  "DELETE": {
+    "DELETE_PARAMETERS_BY_IDS": "update session.session_parameters set deleted = true, updated_by = $5 where parameter_id = Any($4) and trader_id = $3 and book_id = $2 and session_id = $1 and not deleted returning *",
+    "DELETE_PARAMETERS_BY_SUBTYPE_IDS": "update session.session_parameters AS sl set deleted = true, updated_by = $5 where parameter_subtype_id = ANY($4) and trader_id = $3 and book_id = $2 and session_id = $1 and not deleted returning *",
+    "DELETE_ALL_PARAMETERS_BY_TYPE_IDS": "update session.session_parameters AS sl set deleted = true, updated_by = $5 from session.parameter_subtypes AS ls where ls.parameter_subtype_id = sl.parameter_subtype_id and ls.parameter_type_id = ANY($4) and sl.trader_id = $3 and sl.book_id = $2 and sl.session_id = $1 and not sl.deleted returning *",
+    "DELETE_PARAMETERS_CUSTOM_COLUMN": "update session.session_parameters AS sl set custom_members = COALESCE(custom_members #-ARRAY[$5]::text[], custom_members), updated_by = $6 from session.parameter_subtypes AS ls where ls.parameter_subtype_id = sl.parameter_subtype_id and ls.parameter_type_id = $4 and sl.trader_id = $3 and sl.book_id = $2 and sl.session_id = $1 returning *"
+  }
+}

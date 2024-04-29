@@ -1,0 +1,17 @@
+
+type SessionInstrument {
+  session_id: Int!
+  instrument_id: Int!
+  symbol: String!
+  instrument_members: InstrumentMembers! # TODO: change  SessionInstrumentMembers to snake case
+  instrument_subtype_id: Int!
+  instrument_subtype_name: String!
+}
+
+type Query {
+  getSessionInstruments(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): [SessionInstrument]!
+}

@@ -1,0 +1,1 @@
+export const NOTIONAL_MULTIPLIER = 1000;

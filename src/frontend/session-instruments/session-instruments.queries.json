@@ -1,0 +1,5 @@
+{
+    "QUERY": {
+      "GET_SESSION_INSTRUMENTS": "SELECT ss.session_id, ss.instrument_id, ss.symbol, ii.instrument_members, iis.instrument_subtype_name, iis.instrument_subtype_id FROM session.session_instruments ss JOIN ims.instruments ii ON ss.instrument_id = ii.instrument_id JOIN ims.instrument_subtypes iis ON ii.instrument_subtype_id = iis.instrument_subtype_id  WHERE session_id = $1 AND ss.status AND NOT ss.deleted AND NOT ii.deleted ORDER BY ii.instrument_members->>'maturityDate'"
+    }
+}

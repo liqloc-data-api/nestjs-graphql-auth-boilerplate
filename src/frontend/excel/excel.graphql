@@ -1,0 +1,99 @@
+
+type Query {
+    getExcelCurveTemplate(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelCurveData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelDeltaLadderTemplate(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelDeltaLadderData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        order_id: Int!
+    ): Any
+    getExcelSingleMaturityTemplate(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelSingleMaturityData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelDateRangeTemplate(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelDateRangeData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelMarketMakingTemplate(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+    getExcelMarketMakingData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+    ): Any
+}
+
+type Mutation {
+    replaceExcelCurveData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+
+    upsertExcelCurveData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+
+    replaceExcelDeltaLadderData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        order_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+
+    replaceExcelSingleMaturityData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+
+    replaceExcelDateRangeData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+
+    replaceExcelMarketMakingData(
+        session_id: Int!
+        book_id: Int!
+        trader_id: Int!
+        excel_data: String!
+    ): AddMutationResponse!
+}

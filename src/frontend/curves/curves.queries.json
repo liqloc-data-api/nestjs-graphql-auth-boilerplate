@@ -1,0 +1,21 @@
+{
+  "QUERY": {
+    "GET_BOOK_TRADER_CURVES": "select sc.curve_id, sc.instrument_id , ii.symbol, ii.instrument_members, sc.session_id,  sc.book_id , sc.trader_id , sc.curve_members, sc.custom_members , sc.updated_by, u.email as updated_by_email , sc.updated_at  from session.session_curves sc join ims.instruments ii on ii.instrument_id = sc.instrument_id join iam.users u on u.user_id = sc.updated_by where sc.trader_id = $3 and sc.book_id = $2 and sc.session_id = $1 and not sc.deleted and not ii.deleted order by ii.instrument_members->>'maturityDate'",
+    "GET_CURVE_BY_ID": "select sc.curve_id, sc.instrument_id , ii.symbol , ii.instrument_members, sc.session_id,  sc.book_id , sc.trader_id , sc.curve_members, sc.custom_members , sc.updated_by, u.email as updated_by_email , sc.updated_at  from session.session_curves sc join ims.instruments ii on ii.instrument_id = sc.instrument_id join iam.users u on u.user_id = sc.updated_by where sc.curve_id = $4 and sc.trader_id = $3 and sc.book_id = $2 and sc.session_id = $1 and not sc.deleted and not ii.deleted order by ii.instrument_members->>'maturityDate'"
+  },
+  "ADD": {
+    "ADD_CURVE": "insert into session.session_curves (session_id, book_id, trader_id, instrument_id, curve_members, custom_members, updated_by) values ($1, $2, $3, $4, $5, $6, $7) returning *",
+    "ADD_MULTI_CURVE": "insert into session.session_curves (session_id, book_id, trader_id, instrument_id, curve_members, custom_members, updated_by) values {placeholder} returning *"
+  },
+  "UPDATE": {
+    "UPDATE_CURVE": "update session.session_curves set curve_members = $5,  custom_members = $6, updated_by = $7 where curve_id = $4 and trader_id = $3 and book_id = $2 and session_id = $1 returning *",
+    "UPDATE_MULTI_CURVES": "UPDATE session.session_curves AS sc SET curve_members = u.curve_members, updated_by = $4 FROM (VALUES {placeholder}) AS u(curve_id, curve_members) WHERE u.curve_id = sc.curve_id AND sc.session_id = $1 AND sc.book_id = $2 AND sc.trader_id = $3 RETURNING *"
+  },
+  "DELETE": {
+    "DELETE_CURVES_BY_IDS": "update session.session_curves set deleted = true, updated_by = $5 where curve_id = Any($4) and not deleted and trader_id = $3 and book_id = $2 and session_id = $1 returning *",
+    "DELETE_CURVE_FOR_SESSION": "update session.session_curves set deleted = true, updated_by = $4 where session_id = $1 and book_id = $2 and trader_id = $3 and not deleted returning *",
+    "DELETE_CURVES_MEMBER_BY_KEY": "update session.session_curves set curve_members = COALESCE(curve_members #-ARRAY[$4]::text[], curve_members), updated_by = $6 where curve_id = Any($5) and trader_id = $3 and book_id = $2 and session_id = $1 returning *",
+    "DELETE_CURVES_CUSTOM_COLUMN": "update session.session_curves set custom_members = COALESCE(custom_members #-ARRAY[$4]::text[], custom_members), updated_by = $5 where trader_id = $3 and book_id = $2 and session_id = $1 returning *"
+  }
+}
+

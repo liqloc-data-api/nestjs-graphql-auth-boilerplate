@@ -1,0 +1,175 @@
+input MMWJson {
+  FSS: FSSQuote
+  OrderTypeState: OrderTypeState
+  Liquid: AutoQuote
+  OtherSpotDates: AutoQuote
+  IMMRange: IMMRangeDep
+  IMMDates: AutoQuote
+  PairsFlies: PairsFliesAutoQuoteDep
+  FollowONTenors: TenorSetting
+  FollowONOrders: FollowONOrdersDep
+  Limits: LimitsSettingDep
+  LiquidRows: [QuoteRow]
+  SpotRows: [QuoteRow]
+  DummyDataCopy: DummyDataCopy
+}
+
+input IMMRangeDep {
+  autoQuoteRange: [Int]
+}
+
+input PairsFliesAutoQuoteDep {
+  pairs: Int
+  flies: Int
+  tenors: TenorSetting
+  autoQuoteRange: [Int]
+}
+
+input FollowONOrdersDep {
+  liquidNotional: Int
+  liquidSpread: Float
+  spotNotional: Int
+  spotSpread: Float
+  immNotional: Int
+  immSpread: Float
+}
+
+input LimitsSettingDep {
+  SMLimit: Boolean
+  bucketLimit: Int
+}
+
+input OrderTypeState {
+  spot: Boolean
+  imm: Boolean
+  pairFly: Boolean
+  fss: Boolean
+  followOn: Boolean
+}
+
+input AutoQuote {
+  deep: Int
+  wide: Float
+  updatedType: String
+}
+
+input PairsFliesQuote {
+  pairsSpreadFraction: Int
+  fliesSpreadFraction: Int
+  tenors: TenorSetting
+  autoQuoteRange: [Int]
+}
+
+input FSSQuote {
+  fss: Int
+  tenors: TenorSetting
+  autoQuoteRange: [Int]
+}
+
+input TenorSetting {
+  Liquid: Boolean
+  Spot: Boolean
+  IMM: Boolean
+}
+
+input FollowOnOrders {
+  tenors: TenorSetting
+  Liquid: FollowOnQuote
+  Spot: FollowOnQuote
+  IMM: FollowOnQuote
+}
+
+input FollowOnQuote {
+  notional: Int
+  spread: Float
+}
+
+input LimitSettings {
+  inferSingleMaturityLimits: Boolean
+  relativeDateRangeBuckets: Int
+}
+
+input QuoteRow {
+  pay: Int
+  receive: Int
+  wide: Float
+  id: String
+  refID: String
+  active: Boolean
+  payManuallyEdited: Boolean
+  receiveManuallyEdited: Boolean
+  wideManuallyEdited: Boolean
+}
+
+input DummyDataCopy {
+  curve: Boolean
+  directional: Boolean
+  deltaLadder: Boolean
+}
+
+type SingleMaturityLimitImplied {
+  instrument_id: Int!
+  do_max_pay_limit: Float!
+  do_max_receive_limit: Float!
+  mm_max_pay_limit: Float!
+  mm_max_receive_limit: Float!
+  dl_max_pay_limit: Float!
+  dl_max_receive_limit: Float!
+  user_max_pay_limit: Float
+  user_max_receive_limit: Float
+  user_parameter_id: Int
+  inferred: Boolean!
+  limit_breach: Boolean!
+  breach_direction: BreachDirection!
+  max_pay_limit: Float!
+  max_receive_limit: Float!
+  cumulative_pay_exposure: Float!
+  cumulative_receive_exposure: Float!
+}
+
+type BucketOutput {
+  name: String!
+  instrument_ids: [Int!]!
+}
+
+type BucketPairLimitOutput {
+  near_bucket_name: String!
+  far_bucket_name: String!
+  limit: Float!
+  direction: Direction!
+  inferred: Boolean!
+}
+
+type RelativeDateLimitMembersOutput {
+  buckets: [BucketOutput!]!
+  bucket_pair_limits: [BucketPairLimitOutput!]!
+  unit: AmountType!
+}
+
+type Query {
+  getMaturityMapper(session_id: Int!, book_id: Int!, trader_id: Int!): Any!
+  getImpliedSMLimits(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): [SingleMaturityLimitImplied]!
+  getImpliedRDRLimits(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): RelativeDateLimitMembersOutput!
+}
+
+type Mutation {
+  addMMWOrdersParams(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    mmw_json: MMWJson!
+  ): AddMutationResponse!
+  addImpliedLimits(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+  ): AddMutationResponse!
+}

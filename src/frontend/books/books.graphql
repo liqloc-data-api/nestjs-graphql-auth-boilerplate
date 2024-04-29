@@ -1,0 +1,10 @@
+type Book {
+  book_id: Int!
+  book_name: String!
+  organization_id: Int!
+  updated_by: Int!
+}
+
+type Query {
+  getBook(session_id: Int!, book_id: Int!, trader_id: Int!): Book!
+}

@@ -1,0 +1,95 @@
+scalar JSON
+scalar DV01
+scalar Any
+scalar DateTime
+scalar Date
+scalar DateYYYYMMDD
+
+interface Response {
+  code: Int!
+  message: String!
+}
+
+interface ResponseOld {
+  code: Int!
+  message: String!
+  metaData: JSON
+}
+
+type DeleteMutationResponse implements ResponseOld {
+  code: Int!
+  message: String!
+  metaData: JSON
+}
+
+type AddMutationResponse implements ResponseOld {
+  code: Int!
+  message: String!
+  metaData: JSON
+}
+
+type Query {
+  test: Int
+}
+
+input CustomMembersInput {
+  _custom_column_1: Any
+  _custom_column_2: Any
+  _custom_column_3: Any
+  _custom_column_4: Any
+  _custom_column_5: Any
+  _custom_column_6: Any
+  _custom_column_7: Any
+  _custom_column_8: Any
+  _custom_column_9: Any
+  _custom_column_10: Any
+}
+
+enum RateUnit {
+  BASIS_POINT
+  PERCENTAGE
+}
+
+enum PriceType {
+  PREMIUM_TO_MID
+  SPREAD_TO_MID
+}
+
+enum AmountType {
+  DV01
+  NOTIONAL
+}
+
+enum Direction {
+  Receive
+  Pay
+}
+
+enum BreachDirection {
+  Receive
+  Pay
+  Both
+}
+
+type InstrumentMembers {
+  startDate: String
+  maturityDate: String!
+  numberOfPeriods: Float
+  floatingRateIndex: String
+}
+
+input InstrumentMembersInput {
+  startDate: String
+  maturityDate: String!
+  numberOfPeriods: Float
+  floatingRateIndex: String
+}
+
+type SessionInstrument {
+  session_id: Int!
+  instrument_id: Int!
+  symbol: String!
+  instrument_members: InstrumentMembers! # TODO: change  SessionInstrumentMembers to snake case
+  instrument_subtype_id: Int!
+  instrument_subtype_name: String!
+}

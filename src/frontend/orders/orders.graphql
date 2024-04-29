@@ -1,0 +1,246 @@
+type Query {
+  getSessionOrdersByOrderTypes(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_type_ids: [Int!]!
+  ): [SessionOrder]!
+  getSessionOrderById(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+  ): SessionOrder
+  getSessionOrderDetailsByOrderId(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+  ): [SessionOrderDetail]!
+  getSessionOrderDetailsByInstrumentId(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    instrument_id: Int!
+  ): SessionOrderDetail
+}
+
+type Mutation {
+  addSingleMaturityDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: SingleMaturityDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addFlyDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: FlyDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addSpreadDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: SpreadDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addAnyOfDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: AnyOfDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addAllOfDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: AllOfDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addTagAlongDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: TagAlongDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addSingleMaturityMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: SingleMaturityMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addSpreadMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: SpreadMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addFlyMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: FlyMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateSingleMaturityDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: SingleMaturityDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateSpreadDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: SpreadDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateFlyDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: FlyDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateAnyOfDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: AnyOfDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateAllOfDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: AllOfDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateTagAlongDOOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: TagAlongDOMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateSingleMaturityMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: SingleMaturityMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateSpreadMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: SpreadMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateFlyMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: FlyMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addRuleBasedMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_subtype_id: Int!
+    order_members: RuleBasedMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateRuleBasedMMOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_subtype_id: Int!
+    order_id: Int!
+    order_members: RuleBasedMMOrderMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  addDeltaLadderOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_members: DeltaLadderOrderMembers!
+  ): AddMutationResponse!
+  updateDeltaLadderOrder(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    order_members: DeltaLadderOrderMembers!
+  ): AddMutationResponse!
+  addDeltaLadderOrderDetail(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    instrument_id: Int!
+    order_detail_members: DeltaLadderOrderDetailMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  updateDeltaLadderOrderDetail(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    instrument_id: Int!
+    order_detail_members: DeltaLadderOrderDetailMembers!
+    custom_members: JSON
+  ): AddMutationResponse!
+  deleteSessionOrdersCustomColumn(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_type_id: Int!
+    column_name: String!
+  ): DeleteMutationResponse!
+  deleteSessionOrders(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_ids: [Int!]!
+  ): DeleteMutationResponse!
+  deleteOrderDetailsCustomColumn(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    column_name: String!
+  ): DeleteMutationResponse!
+  deleteOrderDetails(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_id: Int!
+    instrument_ids: [Int!]!
+  ): DeleteMutationResponse!
+  deleteAllSessionOrdersByTypeIds(
+    session_id: Int!
+    book_id: Int!
+    trader_id: Int!
+    order_type_ids: [Int!]!
+  ): DeleteMutationResponse!
+}
