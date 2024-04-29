@@ -1,7 +1,6 @@
 const NODE_ENV: string = process.env.NODE_ENV || 'development';
 
 // application
-const HOST: string = process.env.HOST || 'localhost';
 const PORT: number = +process.env.PORT || 4001;
 const PROD_PORT: number = +process.env.PROD_PORT || 4008;
 const DOMAIN: string = process.env.DOMAIN || 'localhost';
@@ -35,7 +34,6 @@ const CERT_DIR: string = process.env.CERT_DIR || './secrets';
 export {
   NODE_ENV,
   PROD_PORT,
-  HOST,
   PORT,
   DOMAIN,
   END_POINT,
