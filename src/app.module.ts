@@ -1,47 +1,56 @@
-import { ApolloDriver } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from '@nestjs/common';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-
+import { AuthzModule } from './authz/authz.module';
+import { DatabaseService } from './common/database/database.service';
+import { DatabaseModule } from './common/database/database.module';
 import { join } from 'path';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { SessionsModule } from './modules/sessions/sessions.module';
-import { UsersModule } from './modules/users/users.module';
+import { FrontendModule } from './frontend/frontend.module';
+import { CommonModule } from './common/common.module';
+import { AppLogger } from './common/logger/logger.service';
+import {
+  DV01Scalar,
+  DateYYYYMMDDScalar,
+} from 'common/custom-scalars/custom.scalar';
+import { DatabaseEnvE } from 'common/database/database.constants-enums';
+import { NODE_ENV } from 'environments';
 
 @Module({
   imports: [
-    /**
-     * Using the GraphQL module it will load all the schemas automatically
-     * and generate the .gql file
-     * Also the playground mode and debug will only be available if the application
-     *  is running under a development environment.
-     */
-    GraphQLModule.forRoot({
-      autoSchemaFile: join(__dirname, 'graphql', 'schema.gql'),
+    DatabaseModule.register(DatabaseEnvE.PROD),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      context: ({ req, res }) => ({ req, res }),
       playground: false,
-      path: '/graphql',
+      typePaths: ['./src/frontend/**/*.graphql', './src/common/**/*.graphql'],
+      ...(true && {
+        plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      }),
+      definitions: {
+        path: join(process.cwd(), './src/frontend/graphql.schema.ts'),
+      },
+      include: [FrontendModule, CommonModule],
+      path: '/graphql/frontend',
+      formatError: (error: any) => {
+        const graphQLFormattedError = {
+          message: error.message,
+          statusCode: error.extensions?.exception?.status || 500,
+          // include other fields if necessary
+        };
+        return graphQLFormattedError;
+      },
     }),
-
-    /**
-     * Using the database module it will connect to the
-     * mongodb server specified in the environment variable "MONGODB_URI"
-     */
-    MongooseModule.forRoot(process.env['MONGODB_URI']),
-
-    /**
-     * Load all the remaining modules that are responsible for managing different schemes and services.
-     */
-    AuthModule,
-    SessionsModule,
-    UsersModule,
+    AuthzModule,
+    CommonModule,
+    FrontendModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    DatabaseService,
+    CommonModule,
+    AppLogger,
+    DV01Scalar,
+    DateYYYYMMDDScalar,
+  ],
 })
 export class AppModule {}
