@@ -4,10 +4,10 @@ import { Request } from 'express';
 
 import CreateSessionDTO from './dto/create-session.dto';
 
-import CurrentUser from 'src/decorators/current-user.decorator';
-import GqlRequest from 'src/decorators/gql-request.decorator';
+import CurrentUser from 'decorators/current-user.decorator';
+import GqlRequest from 'decorators/gql-request.decorator';
 
-import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
+import { GqlAuthGuard } from 'auth/guards/gql-auth.guard';
 
 import { Session } from './schema/session';
 import { SessionsService } from './sessions.service';
@@ -15,7 +15,7 @@ import { SessionWithToken } from './schema/session-with-token';
 
 import { UsersService } from '../users/users.service';
 import { User } from '../users/models/user';
-import AuthToken from 'src/decorators/auth-token.decorator';
+import AuthToken from 'decorators/auth-token.decorator';
 
 @Resolver(() => Resolver)
 export class SessionsResolver {
