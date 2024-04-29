@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { LIB_VERSION } from 'version';
 
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!';
+    return `Web API (Version ${LIB_VERSION}) Liquidity Lock. Only authorized users can access this API.`;
   }
 }
