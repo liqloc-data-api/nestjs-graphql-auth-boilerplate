@@ -26,9 +26,9 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  // NODE_ENV === 'production'
-  //   ? app.useGlobalGuards(new GqlAuthGuard())
-  //   : app.useGlobalGuards(app.get(LocalAuthGuard));
+  NODE_ENV === 'production'
+    ? app.useGlobalGuards(new GqlAuthGuard())
+    : app.useGlobalGuards(app.get(LocalAuthGuard));
 
   // app.enableCors();
 
