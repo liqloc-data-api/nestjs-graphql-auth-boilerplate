@@ -24,7 +24,7 @@ async function bootstrap() {
   const { HOST } = process.env;
   Logger.log(`Starting server: ${NODE_ENV}...`);
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { logger: Logger });
 
   NODE_ENV === 'production'
     ? app.useGlobalGuards(new GqlAuthGuard())
