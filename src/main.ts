@@ -59,15 +59,15 @@ async function bootstrap() {
   // NOTE: body parser
   app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
 
-  // NOTE: rateLimit
-  // app.use(
-  //   rateLimit({
-  //     windowMs: 1000 * 60 * 1, // 1 minutes
-  //     max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs
-  //     message:
-  //       '⚠️  Too many request created from this IP, please try again after an minute',
-  //   }),
-  // );
+  NOTE: rateLimit;
+  app.use(
+    rateLimit({
+      windowMs: 1000 * 60 * 1, // 1 minutes
+      max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs
+      message:
+        '⚠️  Too many request created from this IP, please try again after an minute',
+    }),
+  );
 
   // NOTE: interceptors;
   app.useGlobalInterceptors(new ErrorsInterceptor());
