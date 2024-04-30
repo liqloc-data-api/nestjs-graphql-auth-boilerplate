@@ -17,17 +17,15 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
 declare const module: any;
+const Logger = new AppLogger();
+Logger.setContext('Main');
 
 async function bootstrap() {
   const { HOST } = process.env;
-  const Logger = new AppLogger();
-  Logger.setContext('Main');
+
   Logger.log(`Starting server: ${NODE_ENV}...`);
 
-  const app = await NestFactory.create(AppModule, {
-    logger: Logger,
-    abortOnError: false,
-  });
+  const app = await NestFactory.create(AppModule);
 
   NODE_ENV === 'production'
     ? app.useGlobalGuards(new GqlAuthGuard())
