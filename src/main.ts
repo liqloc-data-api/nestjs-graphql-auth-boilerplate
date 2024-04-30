@@ -57,14 +57,7 @@ async function bootstrap() {
   // );
 
   // NOTE: body parser
-  // app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
-  // app.use(
-  //   bodyParser.urlencoded({
-  //     limit: PAYLOAD_LIMIT,
-  //     extended: true,
-  //     parameterLimit: 50000,
-  //   }),
-  // );
+  app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
 
   // NOTE: rateLimit
   // app.use(
