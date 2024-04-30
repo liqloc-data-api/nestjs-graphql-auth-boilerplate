@@ -35,26 +35,26 @@ async function bootstrap() {
   // NOTE: compression
   app.use(compression());
 
-  // app.use(
-  //   helmet({
-  //     crossOriginEmbedderPolicy: false,
-  //     contentSecurityPolicy: {
-  //       directives: {
-  //         imgSrc: [
-  //           `'self'`,
-  //           'data:',
-  //           'apollo-server-landing-page.cdn.apollographql.com',
-  //         ],
-  //         scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
-  //         manifestSrc: [
-  //           `'self'`,
-  //           'apollo-server-landing-page.cdn.apollographql.com',
-  //         ],
-  //         frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
-  //       },
-  //     },
-  //   }),
-  // );
+  app.use(
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          imgSrc: [
+            `'self'`,
+            'data:',
+            'apollo-server-landing-page.cdn.apollographql.com',
+          ],
+          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+          manifestSrc: [
+            `'self'`,
+            'apollo-server-landing-page.cdn.apollographql.com',
+          ],
+          frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+        },
+      },
+    }),
+  );
 
   // NOTE: body parser
   app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
