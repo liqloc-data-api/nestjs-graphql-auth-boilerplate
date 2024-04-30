@@ -32,32 +32,29 @@ async function bootstrap() {
 
   app.enableCors();
 
-  // NOTE: adapter for e2e testing
-  app.getHttpAdapter();
-
   // NOTE: compression
   app.use(compression());
 
-  app.use(
-    helmet({
-      crossOriginEmbedderPolicy: false,
-      contentSecurityPolicy: {
-        directives: {
-          imgSrc: [
-            `'self'`,
-            'data:',
-            'apollo-server-landing-page.cdn.apollographql.com',
-          ],
-          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
-          manifestSrc: [
-            `'self'`,
-            'apollo-server-landing-page.cdn.apollographql.com',
-          ],
-          frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
-        },
-      },
-    }),
-  );
+  // app.use(
+  //   helmet({
+  //     crossOriginEmbedderPolicy: false,
+  //     contentSecurityPolicy: {
+  //       directives: {
+  //         imgSrc: [
+  //           `'self'`,
+  //           'data:',
+  //           'apollo-server-landing-page.cdn.apollographql.com',
+  //         ],
+  //         scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+  //         manifestSrc: [
+  //           `'self'`,
+  //           'apollo-server-landing-page.cdn.apollographql.com',
+  //         ],
+  //         frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+  //       },
+  //     },
+  //   }),
+  // );
 
   // NOTE: body parser
   app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
@@ -69,15 +66,15 @@ async function bootstrap() {
     }),
   );
 
-  // NOTE: rateLimit
-  app.use(
-    rateLimit({
-      windowMs: 1000 * 60 * 1, // 1 minutes
-      max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs
-      message:
-        '⚠️  Too many request created from this IP, please try again after an minute',
-    }),
-  );
+  // // NOTE: rateLimit
+  // app.use(
+  //   rateLimit({
+  //     windowMs: 1000 * 60 * 1, // 1 minutes
+  //     max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs
+  //     message:
+  //       '⚠️  Too many request created from this IP, please try again after an minute',
+  //   }),
+  // );
 
   // NOTE: interceptors
   app.useGlobalInterceptors(new ErrorsInterceptor());
