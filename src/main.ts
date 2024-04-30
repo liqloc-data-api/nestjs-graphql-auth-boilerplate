@@ -4,18 +4,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-// import * as bodyParser from 'body-parser';
-// import * as compression from 'compression';
+import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
 import { NODE_ENV, PAYLOAD_LIMIT, PORT, RATE_LIMIT_MAX } from 'environments';
-import { Logger } from '@nestjs/common';
-// import { AppLogger } from 'common/logger/logger.service';
-// import { LocalAuthGuard } from 'authz/local.strategy';
-// import { GqlAuthGuard } from 'authz/gqlAuth.guard';
-// import { TimeoutInterceptor } from 'common/interceptors/timeout.interceptor';
-// import { LoggingInterceptor } from 'common/interceptors/logging.interceptor';
-// import { ErrorsInterceptor } from 'common/interceptors/exception.interceptor';
-// import rateLimit from 'express-rate-limit';
-// import helmet from 'helmet';
+import { AppLogger } from 'common/logger/logger.service';
+import { LocalAuthGuard } from 'authz/local.strategy';
+import { GqlAuthGuard } from 'authz/gqlAuth.guard';
+import { TimeoutInterceptor } from 'common/interceptors/timeout.interceptor';
+import { LoggingInterceptor } from 'common/interceptors/logging.interceptor';
+import { ErrorsInterceptor } from 'common/interceptors/exception.interceptor';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+
+declare const module: any;
+const Logger = new AppLogger();
+Logger.setContext('Main');
 
 async function bootstrap() {
   const { HOST } = process.env;
