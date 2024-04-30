@@ -15,6 +15,8 @@ import {
 } from 'common/custom-scalars/custom.scalar';
 import { DatabaseEnvE } from 'common/database/database.constants-enums';
 import { NODE_ENV } from 'environments';
+import { AppController } from 'app.controller';
+import { AppService } from 'app.service';
 
 @Module({
   imports: [
@@ -45,7 +47,9 @@ import { NODE_ENV } from 'environments';
     CommonModule,
     FrontendModule,
   ],
+  controllers: [AppController],
   providers: [
+    AppService,
     DatabaseService,
     CommonModule,
     AppLogger,
