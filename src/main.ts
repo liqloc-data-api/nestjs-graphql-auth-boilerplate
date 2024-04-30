@@ -26,14 +26,14 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, { logger: Logger });
 
-  NODE_ENV === 'production'
-    ? app.useGlobalGuards(new GqlAuthGuard())
-    : app.useGlobalGuards(app.get(LocalAuthGuard));
+  // NODE_ENV === 'production'
+  //   ? app.useGlobalGuards(new GqlAuthGuard())
+  //   : app.useGlobalGuards(app.get(LocalAuthGuard));
 
-  app.enableCors();
+  // app.enableCors();
 
-  // NOTE: compression
-  app.use(compression());
+  // // NOTE: compression
+  // app.use(compression());
 
   // app.use(
   //   helmet({
@@ -57,14 +57,14 @@ async function bootstrap() {
   // );
 
   // NOTE: body parser
-  app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
-  app.use(
-    bodyParser.urlencoded({
-      limit: PAYLOAD_LIMIT,
-      extended: true,
-      parameterLimit: 50000,
-    }),
-  );
+  // app.use(bodyParser.json({ limit: PAYLOAD_LIMIT }));
+  // app.use(
+  //   bodyParser.urlencoded({
+  //     limit: PAYLOAD_LIMIT,
+  //     extended: true,
+  //     parameterLimit: 50000,
+  //   }),
+  // );
 
   // // NOTE: rateLimit
   // app.use(
@@ -83,15 +83,14 @@ async function bootstrap() {
 
   // NOTE: global nest setup
   // app.useGlobalPipes(new ValidationPipe());
-
-  app.enableShutdownHooks();
+  // app.enableShutdownHooks();
 
   await app.listen(PORT, HOST);
 
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
+  // if (module.hot) {
+  //   module.hot.accept();
+  //   module.hot.dispose(() => app.close());
+  // }
 
   Logger.log(`Server listening on http://${HOST}:${PORT}`);
 }
