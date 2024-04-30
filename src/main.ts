@@ -33,7 +33,7 @@ async function bootstrap() {
   app.enableCors();
 
   // NOTE: compression
-  // app.use(compression());
+  app.use(compression());
 
   // app.use(
   //   helmet({
@@ -62,7 +62,7 @@ async function bootstrap() {
   //   bodyParser.urlencoded({
   //     limit: PAYLOAD_LIMIT,
   //     extended: true,
-  //     parameterLimit: 5000,
+  //     parameterLimit: 50000,
   //   }),
   // );
 
