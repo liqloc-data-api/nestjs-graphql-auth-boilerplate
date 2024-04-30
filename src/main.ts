@@ -76,14 +76,10 @@ async function bootstrap() {
   //   }),
   // );
 
-  // NOTE: interceptors
-  // app.useGlobalInterceptors(new ErrorsInterceptor());
-  // app.useGlobalInterceptors(new LoggingInterceptor(Logger));
-  // app.useGlobalInterceptors(new TimeoutInterceptor());
-
-  // NOTE: global nest setup
-  // app.useGlobalPipes(new ValidationPipe());
-  // app.enableShutdownHooks();
+  // NOTE: interceptors;
+  app.useGlobalInterceptors(new ErrorsInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor(Logger));
+  app.useGlobalInterceptors(new TimeoutInterceptor());
 
   await app.listen(PORT, HOST);
 
