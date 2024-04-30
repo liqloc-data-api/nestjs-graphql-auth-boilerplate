@@ -24,7 +24,7 @@ async function bootstrap() {
   const { HOST } = process.env;
   Logger.log(`Starting server: ${NODE_ENV}...`);
 
-  const app = await NestFactory.create(AppModule, { logger: Logger });
+  const app = await NestFactory.create(AppModule);
 
   // NODE_ENV === 'production'
   //   ? app.useGlobalGuards(new GqlAuthGuard())
@@ -77,9 +77,9 @@ async function bootstrap() {
   // );
 
   // NOTE: interceptors
-  app.useGlobalInterceptors(new ErrorsInterceptor());
-  app.useGlobalInterceptors(new LoggingInterceptor(Logger));
-  app.useGlobalInterceptors(new TimeoutInterceptor());
+  // app.useGlobalInterceptors(new ErrorsInterceptor());
+  // app.useGlobalInterceptors(new LoggingInterceptor(Logger));
+  // app.useGlobalInterceptors(new TimeoutInterceptor());
 
   // NOTE: global nest setup
   // app.useGlobalPipes(new ValidationPipe());
