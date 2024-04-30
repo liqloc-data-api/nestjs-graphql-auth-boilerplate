@@ -30,9 +30,9 @@ async function bootstrap() {
     ? app.useGlobalGuards(new GqlAuthGuard())
     : app.useGlobalGuards(app.get(LocalAuthGuard));
 
-  // app.enableCors();
+  app.enableCors();
 
-  // // NOTE: compression
+  // NOTE: compression
   // app.use(compression());
 
   // app.use(
@@ -62,11 +62,11 @@ async function bootstrap() {
   //   bodyParser.urlencoded({
   //     limit: PAYLOAD_LIMIT,
   //     extended: true,
-  //     parameterLimit: 50000,
+  //     parameterLimit: 5000,
   //   }),
   // );
 
-  // // NOTE: rateLimit
+  // NOTE: rateLimit
   // app.use(
   //   rateLimit({
   //     windowMs: 1000 * 60 * 1, // 1 minutes
