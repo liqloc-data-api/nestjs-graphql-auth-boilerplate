@@ -19,13 +19,13 @@ const AUTH0_ISSUER_URL: string =
   process.env.AUTH0_ISSUER_URL || 'https://dev-cr.us.auth0.com/';
 
 //database -> default values to be picked from system env not hardcoded.
-const DB_HOST: string = process.env.DB_HOST || 'llgm-dev1';
+const DB_HOST: string = process.env.DB_HOST || '20.232.141.145';
 const DB_PORT: number = +process.env.DB_PORT || 5432;
 const DB_USERNAME: string = process.env.DB_USERNAME || 'postgres';
 const DB_PASSWORD: string = process.env.DB_PASSWORD || 'admin';
 const DB_NAME: string = 'testdb';
 
-const LOG_DB_HOST: string = process.env.MONGO_HOST || 'llgm-dev1';
+const LOG_DB_HOST: string = process.env.MONGO_HOST || '20.232.141.145';
 const LOG_DB_PORT: number = +process.env.MONGO_PORT || 27017;
 const LOG_DB_NAME: string = process.env.MONGO_DB_NAME || 'dataAPILog';
 
