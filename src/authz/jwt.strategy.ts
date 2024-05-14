@@ -39,10 +39,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(req: Request) {
     // Check if the authorization header exists
     if (req.headers && req.headers.authorization) {
-      this.logger.log(`User Source. IP: ${req.ip}, Origin: ${req.headers.origin}`, req);
+      this.logger.log(
+        `User Source. IP: ${req.ip}, Origin: ${req.headers.origin}`,
+        req,
+      );
       const authHeader = req.headers.authorization;
       const bearerToken = authHeader.split(' ');
-
+      console.log(bearerToken.toString(), 'btoken');
       // Check if the Authorization header is a Bearer token
       if (bearerToken.length === 2) {
         const accessToken = bearerToken[1];
@@ -51,10 +54,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         const userInfo = await firstValueFrom(
           this.authzService.getUserInfo(accessToken),
         );
-
+        console.log(userInfo, 'userInfo');
         try {
+          console.log('we are trying to validate user');
           return await this.authzService.validateUser(userInfo);
         } catch (error) {
+          console.log('we are in error', JSON.stringify(error));
           throw new UnauthorizedException('Invalid user');
         }
 
@@ -64,5 +69,4 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     this.logger.error(`No authorization header`);
     throw new UnauthorizedException('Invalid token');
   }
-
 }

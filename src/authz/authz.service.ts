@@ -11,7 +11,7 @@ export class AuthzService {
     private httpService: HttpService,
     private readonly userMeService: UserMeService,
     private readonly logger: AppLogger,
-    ) {}
+  ) {}
 
   getUserInfo(token: string): Observable<any> {
     const headerRequest = {
@@ -24,22 +24,22 @@ export class AuthzService {
 
   async validateUser(userInfo: any): Promise<any> {
     const userMe = await this.userMeService.getMe(userInfo.email);
+    console.log(userMe, 'userMe');
     if (userMe === null) {
       this.logger.error(`User not in LLGM: ${userInfo.email}`, userInfo);
       throw new UnauthorizedException('Invalid user');
     }
-    const permissions = await this.userMeService.getPermissions(
+    const permissions = await this.userMeService.getPermissions(userMe.user_id);
+    console.log(permissions, 'permissions');
+    this.logger.log(`User internal id: ${userMe.user_id}`, userMe);
+    const active_session_books = await this.userMeService.getActiveSessionBooks(
       userMe.user_id,
     );
-    this.logger.log(`User internal id: ${userMe.user_id}`, userMe)
-    const active_session_books =
-      await this.userMeService.getActiveSessionBooks(userMe.user_id);
 
     const is_demo_user = await this.userMeService.isLLGMAdmin(userMe.user_id);
     return {
       ...userInfo,
       userMe: { ...userMe, permissions, active_session_books, is_demo_user },
-    }; 
+    };
   }
-
 }

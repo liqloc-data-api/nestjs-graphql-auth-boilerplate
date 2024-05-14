@@ -8,13 +8,15 @@ import * as pg from 'pg';
 
 @Injectable()
 export class UserMeService {
-  queryConfigBuilder: Function; multiQueryConfigBuilder: Function;
+  queryConfigBuilder: Function;
+  multiQueryConfigBuilder: Function;
 
   constructor(private readonly dbService: DatabaseService) {
     {
-      [this.queryConfigBuilder, this.multiQueryConfigBuilder] = this.dbService.queryConfigBuilderFactory(
-        path.join(__dirname, 'user-me.queries.json'),
-      );
+      [this.queryConfigBuilder, this.multiQueryConfigBuilder] =
+        this.dbService.queryConfigBuilderFactory(
+          path.join(__dirname, 'user-me.queries.json'),
+        );
     }
   }
   async getMe(email: string, client?: pg.PoolClient): Promise<UserMe | null> {
@@ -24,6 +26,7 @@ export class UserMeService {
       [email],
     ); // separated from query call for ease of debugging
     const response = await this.dbService.query(queryConfig, client);
+    console.log(response, 'respinse  in getMe');
     if (response.code != 200 || response.result.rowCount === 0) {
       return null;
     }
