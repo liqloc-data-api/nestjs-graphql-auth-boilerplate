@@ -34,14 +34,14 @@ import { AppService } from 'app.service';
       },
       include: [FrontendModule, CommonModule],
       path: '/graphql/frontend',
-      formatError: (error: any) => {
-        const graphQLFormattedError = {
-          message: error.message,
-          statusCode: error.extensions?.exception?.status || 500,
-          // include other fields if necessary
-        };
-        return graphQLFormattedError;
-      },
+      // formatError: (error: any) => {
+      //   const graphQLFormattedError = {
+      //     message: error.message,
+      //     statusCode: error.extensions?.exception?.status || 500,
+      //     // include other fields if necessary
+      //   };
+      //   return graphQLFormattedError;
+      // },
     }),
     AuthzModule,
     CommonModule,
