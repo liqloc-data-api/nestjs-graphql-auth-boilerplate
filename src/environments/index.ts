@@ -1,4 +1,4 @@
-const NODE_ENV: string = 'development';
+const NODE_ENV: string = process.env.NODE_ENV || 'development';
 
 // application
 const PORT: number = +process.env.PORT || 4001;
