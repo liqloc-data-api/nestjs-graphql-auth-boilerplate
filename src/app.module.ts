@@ -25,6 +25,7 @@ import { AppService } from 'app.service';
       driver: ApolloDriver,
       context: ({ req, res }) => ({ req, res }),
       playground: false,
+      introspection: true,
       typePaths: ['./src/frontend/**/*.graphql', './src/common/**/*.graphql'],
       ...(true && {
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
