@@ -14,7 +14,7 @@ const PAYLOAD_LIMIT: string = process.env.PAYLOAD_LIMIT || '100mb';
 const LOG_FILE: string = process.env.LOG_FILE || 'debug.log';
 
 const AUTH0_AUDIENCE: string =
-  process.env.AUTH0_AUDIENCE || 'http://localhost:4000/graphql/';
+  process.env.AUTH0_AUDIENCE || 'https://test-be-app.azurewebsites.net';
 const AUTH0_ISSUER_URL: string =
   process.env.AUTH0_ISSUER_URL || 'https://dev-cr.us.auth0.com/';
 
